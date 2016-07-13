@@ -5,6 +5,7 @@ var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
     pump = require('pump'),
+    htmlmin = require('gulp-htmlmin'),
     browserSync = require('browser-sync').create(),
     reload = browserSync.reload;
 
@@ -50,9 +51,16 @@ gulp.task('minify-js', function (cb) {
   );
 });
 
+
+gulp.task('minify-html', function() {
+  return gulp.src(src + '/*.html')
+    .pipe(htmlmin({collapseWhitespace: true}))
+    .pipe(gulp.dest(minsrc))
+});
+
 // Finish proyect
 // Improve
-gulp.task('finish', ['concat-js', 'minify-js', 'less', 'minify-css'], function() {
+gulp.task('finish', ['concat-js', 'minify-js', 'less', 'minify-css', 'minify-html'], function() {
 	console.log("Finished");
 })
 
