@@ -1,72 +1,64 @@
-/* Resets */
-*{
-	padding: 0;
-	margin: 0;
-}
-a{
-	color: inherit;
-	text-decoration: none;
-}
+//------------------------------
+// Main styles
+//------------------------------
 
-/* // Resets */
-h1,
-h2,
-h3{
-	font-family: Helvetica;
-	font-weight: 100;
-}
+// Imports
+@import "reset";
+@import "variables";
+@import "default";
+
+// Base styles
 .header{
-	&__text{
-		text-align: center;
-		padding: 100px 0;
+	&__title{
+		.center;
 		letter-spacing: 1px;
+
+		padding: 100px 0;
 	}
 }
-.header,
-.footer{
-	background-color: #000;
-	color: #FFF;
-}
-.image-section{
+.main-section{
+	background-color: #FFF;
+	color: #000;
+
 	&__img{
 		width: 100%;
 	}
 }
-.phrases-section{
+.quotes-section{
 	padding: 120px 0;
 
-	&__container{
-		margin: 0 auto;
+	&__quote{
+		text-align: center;
+
 		max-width: 1000px;
 
-		& h2{
-			text-align: center;
-			padding-left: 50px;
-			padding-right: 50px;
-		}
+		.margin-center;
+		padding-left: 50px;
+		padding-right: 50px;
 	}
 }
-.line-separator{
+.line-break{
 	width: 100px;
+
 	margin: 60px auto;
 }
 .footer{
 	&__text{
+		box-sizing: content-box;
 		padding: 85px 10%;
 		max-width: 700px;
-	}
-}
-.link{
-	&--podcast:hover{
-		color: #9e40d4;
-	}
-	&--medium:hover{
-		color: #00AB6C;
-	}
-	&--twitter:hover{
-		color: #55acee;
-	}
-	&--instagram:hover{
-		color: #a77d63;
+
+		&-podcast:hover{
+			color: #9e40d4;
+		}
+		&-medium:hover{
+			color: #00AB6C;
+		}
+		&-twitter:hover{
+			color: #55acee;
+		}
+		&-instagram:hover{
+			color: #a77d63;
+		}
 	}
 }
