@@ -20,7 +20,7 @@ var src = 'template/src/',
 // Default task starts the server in the src folder (development)
 gulp.task('default', function(){
 	browserSync.init({
-		server: src + "/",
+		server: src,
 		browser: "Google Chrome Canary",
 		notify: false
 	});
