@@ -1,6 +1,6 @@
 // Plugins
 var gulp = require('gulp'),
-    less = require('gulp-less'),
+    sass = require('gulp-sass'),
     cleanCSS = require('gulp-clean-css'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
@@ -20,13 +20,18 @@ var src = 'template/src/',
 // Default task starts the server in the src folder (development)
 gulp.task('default', function(){
 	browserSync.init({
-		server: src,
+        server: {
+            baseDir: [src, '.tmp'],
+            routes:  {
+                '/bower_components': 'bower_components'
+            }
+        },
 		browser: "Google Chrome Canary",
 		notify: false
 	});
 
-	gulp.watch(src + "less/*.less", ['less']);
-	gulp.watch(src + "less/*.less").on("change", reload);
+	gulp.watch(src + "scss/*.scss", ['sass']);
+	gulp.watch(src + "scss/*.scss").on("change", reload);
 	gulp.watch(src + "*.html").on("change", reload);
 	gulp.watch(src + "js/*.js").on("change", reload);
 });
@@ -38,10 +43,10 @@ gulp.task('minify-css', function(){
         .pipe(gulp.dest(minsrc + 'css'));
 });
 
-// Compile the less files
-gulp.task("less", function() {
-    gulp.src(src + "less/*.less")
-        .pipe(less())
+// Compile the sass files
+gulp.task("sass", function() {
+    gulp.src(src + "scss/*.scss")
+        .pipe(sass())
         .pipe(gulp.dest(src + 'css'));
 });
 // Autoprefix all the css
@@ -53,6 +58,12 @@ gulp.task('prefix', () =>
         }))
         .pipe(gulp.dest(minsrc + 'css/'))
 );
+// Add bower componentes
+gulp.task('add-b', function() {
+    return gulp.src('./bower.json')
+        .pipe(mainBowerFiles())
+        .pipe(gulp.dest('./wwwroot/libs'));
+});
 // Concat all the js files
 gulp.task('concat-js', function() {
   return gulp.src(src + 'js/*.js')
@@ -73,7 +84,7 @@ gulp.task('minify-js', function (cb) {
 gulp.task('minify-html', function() {
   return gulp.src(src + '*.html')
     .pipe(htmlmin({collapseWhitespace: true}))
-    .pipe(gulp.dest(minsrc))
+    .pipe(gulp.dest(minsrc));
 });
 // Compress images in src/img folder
 gulp.task('compress-img', () =>
@@ -93,20 +104,28 @@ gulp.task('c-d', function () {
   ]);
 });
 // Compile, minified and compress all into the dist foler
-// NOT WORKING!! fails on less task, not updated, ¡run twice!
-gulp.task('f', ['less', 'concat-js', 'minify-js', 'minify-css', 'minify-html', 'compress-img'], function() {
+// NOT WORKING!! fails on sass task, not updated, ¡run twice!
+gulp.task('f', ['sass', 'concat-js', 'minify-js', 'minify-css', 'minify-html', 'compress-img'], function() {
 	console.log("Finished");
 });
 // Starts the server in the dist foler for testing
 gulp.task('check-dist', function() {
 	browserSync.init({
-		server: minsrc,
+        server: {
+            baseDir: [minsrc, '.tmp'],
+            routes:  {
+                '/bower_components': 'bower_components'
+            }
+        },
 		browser: "Google Chrome Canary",
-		notify: false
+		notify: false,
+        routes:{
+                    "../../bower_components" : "bower_components"
+                }
 	});
 
-	gulp.watch(src + "less/*.less", ['less']);
-	gulp.watch(src + "less/*.less").on("change", reload);
+	gulp.watch(src + "scss/*.scss", ['sass']);
+	gulp.watch(src + "scss/*.scss").on("change", reload);
 	gulp.watch(src + "*.html").on("change", reload);
 	gulp.watch(src + "js/*.js").on("change", reload);
 });

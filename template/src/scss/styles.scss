@@ -3,32 +3,31 @@
 //------------------------------
 
 // Imports
-@import "reset";
-@import "variables";
-@import "default";
+@import 'reset';
+@import 'variables';
+@import 'default';
 
 // Base styles
 .main-section{
-
-	background-color: @main-bg-color;
-
 	position: relative;
-	z-index: 1;
-
 	height: 100vh;
 
-	&-container{
-		z-index: 1;
-		height: 100px;
-		position: fixed;
+	background-color: $main-bg-color;
+	z-index: 1;
 
-		.center;
+	&-container{
+		@extend .center;
+
+		position: fixed;
+		height: 100px;
+		z-index: 1;
+
 		// Center the main text (without the bg-image)
 		@media only screen and (max-width: 1199px){
 			top: 0;
+			right: 0;
 			bottom: 0;
 			left: 0;
-			right: 0;
 			margin: auto;
 		}
 		// Position the main text aside the bg image
@@ -37,11 +36,13 @@
 			left: 200px;
 	    }
 	}
+
 	&__title,
 	&__subtitle{
+		@extend .center;
 		font-size: 2.5em;
-		.center;
 	}
+
 	&__subtitle{
 		font-size: 1.5em;
 		font-weight: 100;
@@ -52,47 +53,53 @@
 		background-size: cover;
     }
 }
-.quotes-section{
-	padding: 120px 0;
-	background-color: @second-bg-color;
 
-	z-index: 10;
+.quotes-section{
 	position: relative;
+	padding: 120px 0;
+
+	background-color: $second-bg-color;
+	z-index: 10;
+
 
 	&__quote{
-		color: @main-bg-color;
-		.center;
+		@extend .center;
+		@extend .margin-center;
 
 		max-width: 1000px;
-
-		.margin-center;
 		padding: 0 50px;
+
+		color: $main-bg-color;
 	}
 }
+
 .line-break{
 	width: 100px;
-
 	margin: 60px auto;
 }
+
 .footer{
-	background-color: @main-bg-color;
+	background-color: $main-bg-color;
 
 	&__text{
-		box-sizing: content-box;
 		max-width: 700px;
 		padding: 85px 10%;
+		box-sizing: content-box;
 
-		&_podcast:hover{
-			color: @podcast-color;
+		&_podcast_link:hover{
+			color: $podcast-color;
 		}
-		&_medium:hover{
-			color: @medium-color;
+
+		&_medium_link:hover{
+			color: $medium-color;
 		}
-		&_twitter:hover{
-			color: @twitter-color;
+
+		&_twitter_link:hover{
+			color: $twitter-color;
 		}
-		&_instagram:hover{
-			color: @instagram-color;
+
+		&_instagram_link:hover{
+			color: $instagram-color;
 		}
 	}
 }

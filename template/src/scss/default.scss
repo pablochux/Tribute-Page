@@ -9,7 +9,8 @@ h3{
 	font-family: Roboto, sans-serif;;
 	font-weight: 300;
 }
+
 body{
-	background-color: @main-bg-color;
-    color: @main-text-color;
+	background-color: $main-bg-color;
+    color: $main-text-color;
 }
